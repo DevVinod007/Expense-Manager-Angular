@@ -5,9 +5,9 @@ import { ExpenseEntryListComponent } from './expense-entry-list/expense-entry-li
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
 
-import { ExpenseGuard } from './expense.guard';
 import { EditEntryComponent } from './edit-entry/edit-entry.component';
 import { AboutComponent } from './about/about.component';
+import { ExpenseGuard } from './Gaurds/expense.guard';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },

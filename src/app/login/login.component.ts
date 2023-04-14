@@ -1,44 +1,41 @@
 import { Component, OnInit } from '@angular/core';
-
-import { FormGroup, FormControl } from '@angular/forms';
-import { AuthService } from '../auth.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
+import { AuthService } from 'src/app/services/auth.service';
+
 @Component({
-   selector: 'app-login',
-   templateUrl: './login.component.html',
-   styleUrls: ['./login.component.css']
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
+  formData!: FormGroup;
 
-   userName!: string;
-   password!: string;
-   formData!: FormGroup;
-  isUserLoggedIn: boolean = false;
+  constructor(
+    private authService: AuthService,
+    private formBuilder: FormBuilder,
+    private router: Router
+  ) {}
 
-   constructor(
-    private authService : AuthService,
-     private router : Router) { }
+  ngOnInit() {
+    this.createForm();
+  }
 
-   ngOnInit() {
-      this.formData = new FormGroup({
-         userName: new FormControl("admin"),
-         password: new FormControl("admin"),
-      });
-   }
+  private createForm() {
+    this.formData = this.formBuilder.group({
+      userName: ['', Validators.required],
+      password: ['', Validators.required],
+    });
+  }
 
-   onClickSubmit(data: any) {
-      this.userName = data.userName;
-      this.password = data.password;
+  onClickSubmit() {
+    const { userName, password } = this.formData.value;
 
-      console.log("Login page: " + this.userName);
-      console.log("Login page: " + this.password);
-
-      this.authService.login(this.userName, this.password)
-         .subscribe( data => { 
-            console.log("Is Login Success: " , data);
-      
-           if(data) this.router.navigate(['/expenses']); 
-      });
-   }
+    this.authService.login(userName, password).subscribe((data) => {
+      if (data) {
+        this.router.navigate(['/expenses']);
+      }
+    });
+  }
 }

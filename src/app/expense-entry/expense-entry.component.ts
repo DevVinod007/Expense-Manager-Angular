@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ExpenseEntry } from '../expensemodel';
-import { ExpensentryService } from '../expensentry.service';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
+import { ExpensentryService } from '../services/expensentry.service';
 
 @Component({
   selector: 'app-expense-entry',

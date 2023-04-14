@@ -1,31 +1,41 @@
-<div class="col-sm mt-2 mb-2" style="text-align: right;">
-    <button class="btn btn-primary" routerLink="/expenses/add">ADD</button> 
-    <!-- <button type="button" class="btn btn-primary">Edit</button> -->
+<div class="container">
+   <div class="row mt-3">
+     <div class="col-sm-12">
+       <button class="btn btn-primary float-right" routerLink="/expenses/add">Add Expense</button>
+     </div>
+   </div>
+ 
+   <div class="table-responsive mt-3">
+      <table class="table table-striped table-hover">
+         <thead class="bg-primary text-white">
+           <tr>
+             <th scope="col">#</th>
+             <th scope="col">Item</th>
+             <th scope="col">Amount</th>
+             <th scope="col">Category</th>
+             <th scope="col">Location</th>
+             <th scope="col">Spent On</th>
+             <th scope="col">Actions</th>
+           </tr>
+         </thead>
+         <tbody>
+           <tr *ngFor="let entry of expenseEntries; let i = index" class="align-middle">
+             <th scope="row">{{ i + 1 }}</th>
+             <td>{{ entry.item }}</td>
+             <td>{{ entry.amount | currency }}</td>
+             <td>{{ entry.category }}</td>
+             <td>{{ entry.location }}</td>
+             <td>{{ entry.spendOn | date: 'medium' }}</td>
+             <td>
+               <div class="d-flex justify-content-center">
+                 <a routerLink="../expenses/detail/{{ entry.id }}" class="btn btn-sm btn-info mr-2">View</a>
+                 <a routerLink="../expenses/edit/{{ entry.id }}" class="btn btn-sm btn-primary mr-2">Edit</a>
+                 <a href="#" class="btn btn-sm btn-danger" (click)="deleteExpenseEntry($event, entry.id)">Delete</a>
+               </div>
+             </td>
+           </tr>
+         </tbody>
+       </table>   
+   </div>
  </div>
-
-<table class="table table-striped"> 
-    <thead> 
-       <tr> 
-          <th>Item</th>
-          <th>Amount</th> 
-          <th>Category</th> 
-          <th>Location</th> 
-          <th>Spent On</th> 
-          <th>View</th> 
-          <th>Edit</th>
-               <th>Delete</th>
-       </tr> 
-    </thead> 
-    <tbody> 
-       <tr *ngFor="let entry of expenseEntries"> 
-          <th scope="row">{{ entry.item }}</th> 
-          <th>{{ entry.amount }}</th> 
-          <td>{{ entry.category }}</td> 
-          <td>{{ entry.location }}</td> 
-          <td>{{ entry.spendOn | date: 'medium' }}</td> 
-          <td><a routerLink="../expenses/detail/{{ entry.id }}">View</a></td> 
-          <td><a routerLink="../expenses/edit/{{ entry.id }}">Edit</a></td>
-          <td><a href="#" (click)="deleteExpenseEntry($event, entry.id)">Delete</a></td>
-       </tr> 
-    </tbody> 
- </table>
+ 

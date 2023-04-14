@@ -1,22 +1,18 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { ExpenseEntryComponent } from './expense-entry/expense-entry.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ExpenseEntryListComponent } from './expense-entry-list/expense-entry-list.component';
-import { HttpClientModule } from '@angular/common/http';
-import { MatTableModule } from '@angular/material/table';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { AboutComponent } from './about/about.component';
-import { ItemComponent } from './item/item.component';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { LoginComponent } from './login/login.component';
-import { ReactiveFormsModule } from '@angular/forms';
-import { LogoutComponent } from './logout/logout.component';
-import { EditEntryComponent } from './edit-entry/edit-entry.component';
+import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
+import { NgModule } from "@angular/core";
+import { ReactiveFormsModule } from "@angular/forms";
+import { BrowserModule } from "@angular/platform-browser";
+import { AboutComponent } from "./about/about.component";
+import { AppRoutingModule } from "./app-routing.module";
+import { AppComponent } from "./app.component";
+import { EditEntryComponent } from "./edit-entry/edit-entry.component";
+import { ExpenseEntryListComponent } from "./expense-entry-list/expense-entry-list.component";
+import { ExpenseEntryComponent } from "./expense-entry/expense-entry.component";
+import { HeaderComponent } from "./header/header.component";
+import { LoginComponent } from "./login/login.component";
+import { LogoutComponent } from "./logout/logout.component";
+import { MyInterceptor } from "./services/auth-interceptor.service";
+import { ExpensentryService } from "./services/expensentry.service";
 
 
 
@@ -26,23 +22,19 @@ import { EditEntryComponent } from './edit-entry/edit-entry.component';
     ExpenseEntryComponent,
     ExpenseEntryListComponent,
     AboutComponent,
-    ItemComponent,
-    PageNotFoundComponent,
     LoginComponent,
+    HeaderComponent,
     LogoutComponent,
     EditEntryComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule,
     HttpClientModule,
-    MatTableModule,
-    MatButtonModule,
-    MatIconModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [ExpensentryService,
+    { provide: HTTP_INTERCEPTORS, useClass: MyInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
