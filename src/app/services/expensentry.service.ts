@@ -15,7 +15,7 @@ import { ExpenseEntry } from '../expensemodel';
   providedIn: 'root',
 })
 export class ExpensentryService {
-  private expenseRestUrl = 'http://localhost:8000/api/expense';
+  private expenseRestUrl = 'https://express-backend-7tak.onrender.com/api/expense';
 
   constructor(private httpClient: HttpClient) {}
 
