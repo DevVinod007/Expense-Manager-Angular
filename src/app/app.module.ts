@@ -31,7 +31,7 @@ import { ExpensentryService } from "./services/expensentry.service";
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   providers: [ExpensentryService,
     { provide: HTTP_INTERCEPTORS, useClass: MyInterceptor, multi: true }],
