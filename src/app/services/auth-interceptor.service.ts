@@ -1,15 +1,23 @@
 import { Injectable } from '@angular/core';
-import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { catchError, retry } from 'rxjs/operators';
+import {
+  HttpEvent,
+  HttpInterceptor,
+  HttpHandler,
+  HttpRequest,
+  HttpErrorResponse,
+} from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class MyInterceptor implements HttpInterceptor {
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+  intercept(
+    req: HttpRequest<any>,
+    next: HttpHandler
+  ): Observable<HttpEvent<any>> {
     const headers = req.headers.append('Content-Type', 'application/json');
     const newReq = req.clone({ headers });
     console.log(newReq);
-     return next.handle(newReq);
+    return next.handle(newReq);
     // Handle the request
     // return next.handle(newReq).pipe(
     //   retry(3), // Retry up to 3 times
